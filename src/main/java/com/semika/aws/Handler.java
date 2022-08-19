@@ -14,10 +14,6 @@ import java.util.Map;
 
 public class Handler implements RequestHandler<Map<String,String>, String> {
 
-//    public String handleRequest(Context context) {
-//
-//    }
-
     @Override
     public String handleRequest(Map<String, String> event, Context context) {
 
@@ -26,6 +22,9 @@ public class Handler implements RequestHandler<Map<String,String>, String> {
         LambdaLogger logger = context.getLogger();
         ScanEmployees scanEmployees = new ScanEmployees();
         Boolean ans =  scanEmployees.sendEmployeMessage(context);
+
+        String toEmail = event.get("email");
+        logger.log("To email " + toEmail);
 
         String requestId = context.getAwsRequestId();
         logger.log("AWS Request ID = " + requestId);
