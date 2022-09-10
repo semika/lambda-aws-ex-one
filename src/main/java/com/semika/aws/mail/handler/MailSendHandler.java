@@ -1,8 +1,8 @@
-package com.semika.aws;
+package com.semika.aws.mail.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.semika.aws.mail.MosaicSesEmailClient;
+import com.semika.aws.mail.client.MosaicSesEmailClient;
 
 import java.util.Map;
 

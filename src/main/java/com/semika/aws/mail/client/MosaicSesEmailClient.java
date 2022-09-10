@@ -1,4 +1,4 @@
-package com.semika.aws.mail;
+package com.semika.aws.mail.client;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;

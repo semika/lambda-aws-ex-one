@@ -1,4 +1,4 @@
-package com.semika.aws.handler;
+package com.semika.aws.mail.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;

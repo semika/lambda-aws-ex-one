@@ -1,4 +1,4 @@
-package com.semika.aws.mail;
+package com.semika.aws.mail.client;
 
 public interface MosaicEmailClient {
 
