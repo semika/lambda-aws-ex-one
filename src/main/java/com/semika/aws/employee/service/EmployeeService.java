@@ -30,12 +30,17 @@ public class EmployeeService {
     public void save(EmployeeDto employeeDto, Context context) {
         Employee employee = employeeConverter.from(employeeDto);
         employeeRepository.save(employee, context);
-        sendNotification(employeeDto.getEmail(), context);
+        //sendNotification(employeeDto.getEmail(), context);
     }
 
     public EmployeeDto findById(String id, Context context) {
         Employee employee = employeeRepository.findById(id);
         return employeeConverter.to(employee);
+    }
+
+    public List<EmployeeDto> findAll() {
+        List<Employee> employeeList = employeeRepository.findAll();
+        return employeeConverter.toList(employeeList);
     }
 
     private void sendNotification(String email, Context context) {

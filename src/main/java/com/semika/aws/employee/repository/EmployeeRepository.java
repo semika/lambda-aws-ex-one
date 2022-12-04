@@ -47,7 +47,19 @@ public class EmployeeRepository extends BaseRepository<Employee> {
         return employee;
     }
 
-    public List<Employee> findEmployeeByFirstName(String firstName) {
+    public List<Employee> findAll() {
+        List<Employee> employeeList = new ArrayList<>();
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
+        DynamoDbTable<Employee> mappedTable = enhancedClient.table(this.get(), TableSchema.fromBean(Employee.class));
+        PageIterable<Employee> employeeIterable = mappedTable.scan();
+        Iterator<Employee> employeeIterator = employeeIterable.items().iterator();
+        employeeIterator.forEachRemaining((employee -> {
+            employeeList.add(employee);
+        }));
+        return employeeList;
+    }
+
+    public List<Employee> findEmployeeByCriteria(String firstName) {
 
         DynamoDbTable<Employee> table = getDbTable();
 

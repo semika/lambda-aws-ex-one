@@ -1,16 +1,15 @@
 package com.semika.aws.employee.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.semika.aws.common.model.BaseDto;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeDto {
-    private String Id;
+@ToString
+public class EmployeeDto extends BaseDto {
+    private String id;
     private String first;
     private String phone;
     private String startDate;

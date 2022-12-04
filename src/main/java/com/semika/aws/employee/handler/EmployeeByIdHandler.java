@@ -1,6 +1,7 @@
 package com.semika.aws.employee.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -30,11 +31,15 @@ public class EmployeeByIdHandler
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent apiGatewayProxyRequestEvent, Context context) {
 
-        Map<String, String> queryParam = apiGatewayProxyRequestEvent.getQueryStringParameters();
+        Map<String, String> queryParam = apiGatewayProxyRequestEvent.getPathParameters();
+
+        LambdaLogger logger = context.getLogger();
+
+        logger.log(queryParam.toString());
 
         String id = queryParam.get("id");
 
-        LOGGER.info("Finding employee for id = " + id);
+        logger.log("Finding employee for id = " + id);
 
         EmployeeDto dto = employeeService.findById(id, context);
 

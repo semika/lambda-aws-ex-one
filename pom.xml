@@ -50,7 +50,6 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-<!--            <version>1.12.299</version>-->
         </dependency>
 
         <dependency>
