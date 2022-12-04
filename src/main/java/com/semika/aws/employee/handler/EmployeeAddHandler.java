@@ -33,7 +33,12 @@ public class EmployeeAddHandler implements RequestHandler<EmployeeDto, String> {
 
         logger.log(employeeDto.toString());
 
-        employeeService.save(employeeDto, context);
+        if (employeeDto.getId() == null) {
+            employeeService.save(employeeDto, context);
+        } else {
+            employeeService.update(employeeDto, context);
+        }
+
         String jsonResponse = ThaproResponseBuilder
                 .create()
                 .withMessage("Employee saved successfully..")

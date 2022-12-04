@@ -33,7 +33,8 @@ public class EmployeeRepository extends BaseRepository<Employee> {
     }
 
     public void update(Employee employee, Context context) {
-
+        DynamoDbTable<Employee> table = getDbTable();
+        table.updateItem(employee);
     }
 
     public Employee findById(String id) {

@@ -1,6 +1,7 @@
 package com.semika.aws.util;
 
-public interface BiConverter <F, T>
-        extends FromConverter<F, T>, ToConverter<F, T>, FromConverterList<F, T>, ToConverterList<F, T> {
+public interface BiConverter <DOMAIN, DTO>
+        extends DtoToDomainConverter<DOMAIN, DTO>, DomainToDtoConverter<DOMAIN, DTO>,
+        DtoToDomainListConverter<DOMAIN, DTO>, DomainToDtoListConverter<DOMAIN, DTO> {
 
 }

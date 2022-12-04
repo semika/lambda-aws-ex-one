@@ -28,14 +28,21 @@ public class EmployeeService {
     }
 
     public void save(EmployeeDto employeeDto, Context context) {
-        Employee employee = employeeConverter.from(employeeDto);
+        Employee employee = employeeConverter.dtoToDomain(employeeDto);
         employeeRepository.save(employee, context);
+        //sendNotification(employeeDto.getEmail(), context);
+    }
+
+    public void update(EmployeeDto dto, Context context) {
+        Employee employee = employeeRepository.findById(dto.getId());
+        employeeConverter.dtoToDomain(dto, employee);
+        employeeRepository.update(employee, context);
         //sendNotification(employeeDto.getEmail(), context);
     }
 
     public EmployeeDto findById(String id, Context context) {
         Employee employee = employeeRepository.findById(id);
-        return employeeConverter.to(employee);
+        return employeeConverter.domainToDto(employee);
     }
 
     public List<EmployeeDto> findAll() {
@@ -51,7 +58,7 @@ public class EmployeeService {
 
     private void sendEmail(String firstName, Context context, String toEmail) {
         LambdaLogger logger = context.getLogger();
-        List<Employee> empList = EmployeeRepository.of().findEmployeeByFirstName(firstName);
+        //List<Employee> empList = EmployeeRepository.of().findEmployeeByFirstName(firstName);
         //empList.forEach((Employee emp) -> sendEmail(emp.getEmail(), context));
         sendEmail(toEmail, context);
         logger.log("All mails sent successfully...");
