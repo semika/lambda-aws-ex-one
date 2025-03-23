@@ -1,5 +1,6 @@
 package com.semika.aws.mail.client;
 
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
 import software.amazon.awssdk.services.sesv2.model.*;
@@ -7,7 +8,7 @@ import software.amazon.awssdk.services.sesv2.model.*;
 public class MosaicSesEmailClient implements MosaicEmailClient {
 
     @Override
-    public void sendEmail(String toEmail, String msgContent, String subject) {
+    public void sendEmail(String toEmail, String msgContent, String subject) throws SesV2Exception {
 
         String sender = "semika.siriwardana@gmail.com";
 
@@ -15,13 +16,13 @@ public class MosaicSesEmailClient implements MosaicEmailClient {
 
         SesV2Client sesv2Client = SesV2Client.builder()
                 .region(region)
+                //.credentialsProvider(DefaultCredentialsProvider.create())
                 //.credentialsProvider(mosaicAWSCredentialProvier)
                 .build();
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
                 + "<p> See the list of customers.</p>" + "</body>" + "</html>";
-
 
         Destination destination = Destination.builder()
                 .toAddresses(toEmail)
