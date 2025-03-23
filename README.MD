@@ -5,3 +5,8 @@
 (2) AWS Lambda log tail
 
 > aws logs tail "/aws/lambda/EmployeeCRUD" --follow  --region ap-southeast-1
+> 
+> 
+# Git
+In case, if you encounter git permission issues since you have configured two github locally, simply reset the origin.
+> git remote set-url origin git@github.com-personal:semika/lambda-aws-ex-one.git
