@@ -27,38 +27,40 @@ public class EmployeeRepository extends BaseRepository<Employee> {
         return new EmployeeRepository();
     }
 
-    public void save(Employee employee, Context context) {
-        DynamoDbTable<Employee> table = getDbTable();
-        table.putItem(employee);
-    }
+//    public Employee save(Employee employee) {
+//        DynamoDbTable<Employee> table = getDbTable();
+//        table.putItem(employee);
+//        return employee;
+//    }
 
-    public void update(Employee employee, Context context) {
-        DynamoDbTable<Employee> table = getDbTable();
-        table.updateItem(employee);
-    }
+//    public Employee update(Employee employee) {
+//        DynamoDbTable<Employee> table = getDbTable();
+//        table.updateItem(employee);
+//        return employee;
+//    }
 
-    public Employee findById(String id) {
-        DynamoDbTable<Employee> table = getDbTable();
-        QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
-                .partitionValue(id)
-                .build());
+//    public Employee findById(String id) {
+//        DynamoDbTable<Employee> table = getDbTable();
+//        QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
+//                .partitionValue(id)
+//                .build());
+//
+//        Iterator<Employee> results = table.query(queryConditional).items().iterator();
+//        Employee employee = results.next(); // Based on assumption, there can not be two employees with same id
+//        return employee;
+//    }
 
-        Iterator<Employee> results = table.query(queryConditional).items().iterator();
-        Employee employee = results.next(); // Based on assumption, there can not be two employees with same id
-        return employee;
-    }
-
-    public List<Employee> findAll() {
-        List<Employee> employeeList = new ArrayList<>();
-        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
-        DynamoDbTable<Employee> mappedTable = enhancedClient.table(this.get(), TableSchema.fromBean(Employee.class));
-        PageIterable<Employee> employeeIterable = mappedTable.scan();
-        Iterator<Employee> employeeIterator = employeeIterable.items().iterator();
-        employeeIterator.forEachRemaining((employee -> {
-            employeeList.add(employee);
-        }));
-        return employeeList;
-    }
+//    public List<Employee> findAll() {
+//        List<Employee> employeeList = new ArrayList<>();
+//        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
+//        DynamoDbTable<Employee> mappedTable = enhancedClient.table(this.get(), TableSchema.fromBean(Employee.class));
+//        PageIterable<Employee> employeeIterable = mappedTable.scan();
+//        Iterator<Employee> employeeIterator = employeeIterable.items().iterator();
+//        employeeIterator.forEachRemaining((employee -> {
+//            employeeList.add(employee);
+//        }));
+//        return employeeList;
+//    }
 
     public List<Employee> findEmployeeByCriteria(String firstName) {
 

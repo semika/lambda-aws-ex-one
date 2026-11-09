@@ -34,9 +34,9 @@ public class EmployeeAddHandler implements RequestHandler<EmployeeDto, String> {
         logger.log(employeeDto.toString());
 
         if (employeeDto.getId() == null) {
-            employeeService.save(employeeDto, context);
+            employeeService.save(employeeDto);
         } else {
-            employeeService.update(employeeDto, context);
+            employeeService.update(employeeDto);
         }
 
         String jsonResponse = ThaproResponseBuilder

@@ -41,7 +41,7 @@ public class EmployeeByIdHandler
 
         logger.log("Finding employee for id = " + id);
 
-        EmployeeDto dto = employeeService.findById(id, context);
+        EmployeeDto dto = employeeService.findById(id);
 
         String jsonResponse = ThaproResponseBuilder
                 .<EmployeeDto>create()

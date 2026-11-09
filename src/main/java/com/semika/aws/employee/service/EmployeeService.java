@@ -2,6 +2,7 @@ package com.semika.aws.employee.service;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import com.semika.aws.common.service.GenericService;
 import com.semika.aws.employee.model.Employee;
 import com.semika.aws.employee.model.EmployeeDto;
 import com.semika.aws.employee.repository.EmployeeRepository;
@@ -12,8 +13,9 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class EmployeeService {
+public class EmployeeService implements GenericService<Employee, EmployeeDto> {
 
     private EmployeeConverter employeeConverter;
     private EmployeeRepository employeeRepository;
@@ -27,27 +29,30 @@ public class EmployeeService {
         return new EmployeeService();
     }
 
-    public void save(EmployeeDto employeeDto, Context context) {
+    public EmployeeDto save(EmployeeDto employeeDto) {
         Employee employee = employeeConverter.dtoToDomain(employeeDto);
-        employeeRepository.save(employee, context);
+        employeeRepository.save(employee);
+        return employeeConverter.domainToDto(employee);
         //sendNotification(employeeDto.getEmail(), context);
     }
 
-    public void update(EmployeeDto dto, Context context) {
+    public EmployeeDto update(EmployeeDto dto) {
         Employee employee = employeeRepository.findById(dto.getId());
         employeeConverter.dtoToDomain(dto, employee);
-        employeeRepository.update(employee, context);
+        return dto;
         //sendNotification(employeeDto.getEmail(), context);
     }
 
-    public EmployeeDto findById(String id, Context context) {
+    public EmployeeDto findById(String id) {
         Employee employee = employeeRepository.findById(id);
         return employeeConverter.domainToDto(employee);
     }
 
+    @Override
     public List<EmployeeDto> findAll() {
-        List<Employee> employeeList = employeeRepository.findAll();
-        return employeeConverter.toList(employeeList);
+        return employeeRepository.findAll()
+                .stream().map((Employee e) -> employeeConverter.domainToDto(e))
+                .collect(Collectors.toList());
     }
 
     private void sendNotification(String email, Context context) {
